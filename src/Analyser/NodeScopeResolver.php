@@ -1640,7 +1640,10 @@ final class NodeScopeResolver
 					}
 
 					foreach ($finallyExitPoints as $key => $finallyExitPoint) {
-						if ($finallyExitPoint->getStatement()->expr === $matchingThrowPoint->getNode()) {
+						if (
+							$finallyExitPoint->getStatement() instanceof Node\Stmt\Expression
+							&& $finallyExitPoint->getStatement()->expr === $matchingThrowPoint->getNode()
+						) {
 							unset($finallyExitPoints[$key]);
 							break;
 						}
