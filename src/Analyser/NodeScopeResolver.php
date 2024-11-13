@@ -1638,6 +1638,13 @@ final class NodeScopeResolver
 					} else {
 						$catchScope = $catchScope->mergeWith($matchingThrowPoint->getScope());
 					}
+
+					foreach ($finallyExitPoints as $key => $finallyExitPoint) {
+						if ($finallyExitPoint->getStatement()->expr === $matchingThrowPoint->getNode()) {
+							unset($finallyExitPoints[$key]);
+							break;
+						}
+					}
 				}
 
 				$variableName = null;
